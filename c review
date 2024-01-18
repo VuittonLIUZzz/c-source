@@ -124,7 +124,7 @@ void bobsort(int arr[], int length)
 				arr[j + 1] = tmp;
 				flag = 1;// 误用int flag = 1;重新声明了局部变量，导致每进入一次内层循环都会创建一个新的局部变量，而非改变外层已存在的flag变量值 外层循环无法获取到任何关于这次循环是否有发生交换的信息。
 
-因此，在下一轮外层循环开始时，由于外层循环的flag未被正确更新，它始终保持着初始值0，导致整个冒泡排序算法只能进行一次完整的遍历
+//因此，在下一轮外层循环开始时，由于外层循环的flag未被正确更新，它始终保持着初始值0，导致整个冒泡排序算法只能进行一次完整的遍历
 			}
 	
 		}
@@ -151,6 +151,104 @@ int main()
 	printarray(arr, length);
 	return 0;
 }
+
+
+
+/*插入排序
+关键问题1.将第一个记录看成是初始有序表 
+从第二个记录起依次插入到这个有序表当中
+直到将第n个记录插入
+2.如何查找待插入记录的插入位置
+在i-1个记录的有序区r[1]~r[i-1]中插入记录r[i] 首先顺序
+查找r[i]的正确插入位置 然后将r[i]插入到相应位置
+
+*/
+//j指向有序序列的最后一位
+
+void printarray(int arr[], int n)
+{
+	for (int i = 1; i < n; i++)
+	{
+		printf("%d ", arr[i]);
+	}
+	printf("\n");
+}
+void insertsort(int r[], int n)
+{
+	int j;
+	for (int i = 1; i < n; i++)
+	{
+		r[0] = r[i];
+		j = i - 1;
+		while (r[0] < r[j]&&j>=0)
+		{
+			r[j + 1] = r[j];
+			j--;
+		}
+		r[j + 1] = r[0];
+	}
+}
+int main()
+{
+	void insertsort(int r[], int arr);
+	int arr[] = { 21,22,25,10,25,18 };
+	int n = sizeof(arr) / sizeof(arr[0]);
+	printf("待排序的数组是: ");
+	printarray(arr, n);
+
+	insertsort(arr, n);
+
+	printf("排序后的数组是: ");
+
+	printarray(arr, n);
+	return 0;
+}
+
+
+
+//选择排序
+
+void printarray(int arr[], int length)
+{
+	for (int i = 0; i < length; i++)
+	{
+		printf("%d ", arr[i]);
+	}
+	printf("\n");
+}
+int main()
+{
+	void printarray(int arr[], int length);
+	int arr[] = { 49,38,65,97,76,13,27,49 };
+	int i, j, tmp;
+	int min;
+	int length = sizeof(arr) / sizeof(arr[0]);
+	printf("待排序的数组是: ");
+	printarray(arr, length);
+	for (i = 0; i < length - 1; i++)
+	{
+		min = i;
+		for (j = i + 1; j < length; j++)
+		{
+			if (arr[j] < arr[min])
+			{
+				min = j;
+
+			}
+		}
+		if (min != i)
+		{
+			tmp = arr[i];
+			arr[i] = arr[min];
+			arr[min] = tmp;
+			
+		}
+		printf("第%d轮的排序结果是:", i + 1);
+		printarray(arr, length);
+	}
+	return 0;
+}
+
 
 
 
