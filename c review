@@ -163,7 +163,7 @@ int main()
 查找r[i]的正确插入位置 然后将r[i]插入到相应位置
 
 */
-//j指向有序序列的最后一位
+//j=i-1指向有序序列的最后一位
 
 void printarray(int arr[], int n)
 {
@@ -204,6 +204,68 @@ int main()
 	return 0;
 }
 
+//插入＋二分优化
+void printarray(int r[], int length)
+{
+    for (int i = 0; i < length; i++)
+    {
+        printf("%d ", r[i]);
+    }
+    printf("\n");
+}
+int binarysearch(int arr[], int left,int right,int target)
+{
+    while (left <= right)
+    {
+        int mid = (left + right) / 2;
+
+
+        if (arr[mid] == target)
+        {
+            return mid;
+        }
+        else if (arr[mid] < target)
+        {
+            left = mid + 1;
+        }
+        else
+            right = mid - 1;
+    }
+
+    return right + 1;
+}
+void insortwithbinarysearch(int r[], int n)
+{
+    for (int i = 1; i < n; i++)
+    {
+        int key = r[i];
+        int pos = binarysearch(r, 0, i - 1, key);
+        for (int j = i - 1; j >= pos; j--)//确定插入位置后，需要将插入位置之后的所有元素向右移动一位以腾出空间插入 key： 
+            //a. 使用一个内部循环，从 i - 1 开始递减到 pos（包括 pos），并将每个元素向右移动一位：r[j + 1] = r[j];
+        {
+            r[j + 1] = r[j];
+        }
+        r[pos] = key;
+        printarray(r, n);
+    }
+}
+int main()
+{
+    void insertsortWithBinarySearch(int r[], int n);
+    int r[] = { 21, 22, 25, 10, 25, 18 };
+    int n = sizeof(r) / sizeof(r[0]);
+
+    printf("待排序的数组是: ");
+    printarray(r, n);
+
+    insortwithbinarysearch(r, n);
+
+    printf("排序后的数组是: ");
+
+    printarray(r, n);
+    return 0;
+
+}
 
 
 //选择排序
