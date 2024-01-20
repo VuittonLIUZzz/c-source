@@ -16,7 +16,135 @@ int fac(int n)
 	return f;
 }
 
+#include <stdio.h>
+#include <stdbool.h>
+#include <stdlib.h>
+#include <time.h>
+#include<math.h>
 
+
+
+void printMonth(int, int);
+void printMonthTitle(int, int);
+void printMonthBody(int, int);
+int getStartDay(int, int);
+int getTotalNumberOfDays(int, int);
+int getNumberOfDaysInMonth(int, int);
+bool isLeapYear(int);
+
+
+const char* getMonthName(int month) {
+	const char* months[] = {
+		"Invalid", "January", "February", "March", "April", "May", "June",
+		"July", "August", "September", "October", "November", "December"
+	};
+
+	if (month >= 1 && month <= 12)
+		return months[month];
+	else
+		return months[0]; // 返回"Invalid"或空字符串，表示输入的月份无效
+}
+
+/** 获得从 1800年1月1日 至 year年month月1日之间的天数 */
+int getTotalNumberOfDays(int year, int month)
+{
+	int total_days = 0;
+	for (int y = 1800; y < year; y++)
+	{
+		total_days += isLeapYear(year) ? 366 : 365;
+
+	}
+	for (int m = 1; m < month; m++)
+	{
+		total_days += getNumberOfDaysInMonth(year, month);
+	}
+	return total_days;
+}
+
+bool isLeapYear(int year)
+{
+	if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0)
+		return 1;
+	else
+		return 0;
+	//return (year % 4 == 0 && year % 100 != 0 )|| year % 400 == 0
+}
+int getNumberOfDaysInMonth(int year, int month)
+{
+
+
+	int days[12] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+	if (month == 2 && isLeapYear(year))
+		return 29;
+	else
+		return days[month - 1];
+}
+//	if (month == 1 || month = 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12)
+//	{
+//		return 31;
+//	}
+//	if (month == 4 || month == 6 || month == 9 || month == 11)
+//		return 30;
+//	if (month == 2)
+//	{
+//		return isLeapYear(year) ? 29 : 28;
+//	}
+//
+
+
+int getStartDay(int year, int month)
+{
+	const int START_DAY_FOR_JAN_1_1800 = 3;
+	int total_days = getTotalNumberOfDays(year, month);
+	return ((START_DAY_FOR_JAN_1_1800 + total_days) % 7 + 1);
+}
+
+void printMonthTitle(int year, int month)
+{
+	printf("\n%s %d\n", getMonthName(month), year); 
+	printf("Mo Tu We Th Fr Sa Su\n");
+}
+void printMonthBody(int year, int month)
+{
+	int start_day = getStartDay(year, month);
+	int days_in_month = getNumberOfDaysInMonth(year, month);
+
+	for (int i = 0; i < start_day; i++)
+	{
+		printf("   ");
+	}
+	for (int day = 1; day <= days_in_month; day++)
+	{
+		printf("%d ", day);
+		if ((start_day + day % 7 == 0) || (day == days_in_month))
+		{
+			printf("\n");
+		}
+	}
+
+}
+
+
+void printMonth(int year,int month)
+{
+	
+	printMonthTitle(year, month);
+	printMonthBody(year, month);
+
+}
+
+int main()
+{
+	int year, month;
+	printf("请输入一个年份(例如:2001):");
+	scanf("%d", &year);
+
+	printf("请输入一个月份(1-12的数字):");
+	scanf("%d", &month);
+
+	printMonth(year, month);
+	return 0;
+}
 
 
 
