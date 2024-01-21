@@ -145,6 +145,78 @@ int main()
 	printMonth(year, month);
 	return 0;
 }
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+#include <cstdlib>
+
+double powerRecursion(double x, int y)
+{
+    if (y == 0) // 基本情况：任何数的0次幂都为1
+        return 1.0;
+    else if (y < 0) // 对于负整数次幂，利用正整数次幂和倒数关系
+    {
+        if (x == 0)
+        {
+            fprintf(stderr, "Error: 0 cannot be raised to a negative power.\n");
+            exit(EXIT_FAILURE);
+        }
+        return 1.0 / powerRecursion(x, -y);
+    }
+    else // 正整数次幂，通过乘法进行递归计算
+    {
+        return x * powerRecursion(x, y - 1);
+    }
+}
+
+int main()
+{
+    double x, y;
+
+    printf("请输入一个数字:");
+    if (scanf("%lf", &x) != 1) // 检查读取 double 类型的 x 是否成功
+    {
+        fprintf(stderr, "错误：无法正确读取第一个数字。\n");
+        return EXIT_FAILURE;
+    }
+
+    printf("请输入一个数字:");
+    if (scanf("%d", &y) != 1) // 检查读取 int 类型的 y 是否成功
+    {
+        fprintf(stderr, "错误：无法正确读取第二个数字。\n");
+        return EXIT_FAILURE;
+    }
+
+    double a = getPower(x, y);
+    printf("%.6f", a); // 增加小数点精度以展示浮点结果
+    return 0;
+}
+#include<stdio.h>
+void hanoi(int n,char x, char y, char z)
+{
+	if (n == 1)
+	{
+		move(x, z);
+	}
+	else
+	{
+		hanoi(n - 1, x, z, y);
+		move(x, z);
+		hanoi(n - 1, y, x, z);
+	}
+}
+void move(char c1,char c2)
+{
+	printf("%c ->%c", c1, c2);
+}
+int main()
+{
+	int n;
+	printf("Please input n:");
+	scanf("%d", &n);
+	hanoi(n, 'a', 'b', 'c');
+	return 0;
+}
+
 
 
 
