@@ -77,12 +77,27 @@ void Display(Point point)
 	printf("y is %d\n", point.y);
  }
 //使用结构体变量作为函数的返回值
+//方法一
 Point Setpoint(int x, int y) 
 {
 	Point point;
 	point.x = x;
 	point.y = y;
 	return point;
+}
+
+//方法2
+//使用结构体指针作为函数的参数
+void Setpoint(Point* p)
+{
+	p->x = 2;
+	p->y = 3;
+}
+//错误演示 传值方式传参
+void Setpoint(Pint p)
+{
+	p.x = 2;
+	p.y = 3;
 }
 int main()
 {
