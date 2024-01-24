@@ -1,0 +1,113 @@
+//一维数组角度
+void average(float* p, int n)
+{
+	float* p_end;
+	float sum = 0, aver;
+	p_end = p + n;
+	for (; p < p_end; p++)
+	{
+		sum = sum + (*p);
+	}
+	aver = sum / n;
+	printf("平均成绩为:%5.1f\n", aver);
+}
+//二维数组角度
+void search(float(*p)[4], int n)
+{
+	int i;
+	printf("第%d个学生的成绩为: ", n);
+	for (i = 0; i < 4; i++)
+	{
+		printf("%5.1f", *(*(p + n) + i));
+	}
+}
+int main()
+{
+	float score[3][4] = { {65,67,70,60},{80,87,90,88},{12,99,88,77} };
+	average(&score[0][0], 12);
+	search(score, 2);
+	return 0;
+}
+
+
+
+
+//数组倒序输出
+const int M = 3, N = 4;
+void swap(int* p1, int* p2)
+{
+	int temp = *p1;
+	*p1 = *p2;
+	*p2 = temp;
+}
+void inverse(int* a, int n)
+{
+	int* p, * q;
+	for (p = a, q = a + n - 1; p <= q; p++, q--)
+	{
+		swap(p, q);
+	}
+}
+int main()
+{
+	int i, j;
+	int arr[3][4] = { {1,2,3,4},{5,6,7,8},{9,10,11,12} };
+	inverse(arr,M*N);
+	for (i = 0; i < 3; i++)
+	{
+		for (j = 0; j < 4; j++)
+		{
+			printf("%d ", arr[i][j]);
+
+		}
+		printf("\n");
+	}
+	return 0;
+}
+
+typedef struct{
+	int x;
+	int y;
+
+}Point;
+//使用一个结构体变量作为函数参数
+void Display(Point point)
+{
+	printf("x is %d\n", point.x);
+	printf("y is %d\n", point.y);
+ }
+//使用结构体变量作为函数的返回值
+Point Setpoint(int x, int y) 
+{
+	Point point;
+	point.x = x;
+	point.y = y;
+	return point;
+}
+int main()
+{
+	Point point;
+	point = Setpoint(2, 3);
+	Display(point);
+	return 0;
+
+}
+
+
+struct StudentType
+{
+	char no[10];
+	char name[10];
+	double foreign;
+	double spec1;
+	double spec2;
+};
+struct StudentType stud[10];//结构体数组 
+
+
+struct Point {
+	int x;
+	int y;
+}point;
+struct Point* p;
+p = &point;
