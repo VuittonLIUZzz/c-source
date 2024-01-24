@@ -259,41 +259,6 @@ int main() {
 }
 
 
-const int N = 2;
-struct StudentType
-{
-	char no[10];
-	char name[10];
-	double foreign;
-	double spec1;
-	double spec2;
-	double total;
-};
-void InputMarks(struct StudentType student[], int n)
-{
-
-}
-void AddMarks(struct StudentType student[], int n)
-{
-	int i;
-	for (i = 0; i < n; i++)
-	{
-		student[i].total = student[i].foreign + student[i].spec1 + student[i].spec2;
-	}
-}
-void OutputMarks(struct StudentType student[], int n)
-int main()
-{
-	struct StudentType student[N];
-	int n;
-	printf("请输入学生人数: ");
-	scanf("%d", &n);
-	InputMarks(student, n);
-	AddMarks();
-	printf("各个学生的总成绩为: \n");
-	OutputMarks(student, n);
-	return 0;
-}
 
 
 
