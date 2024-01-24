@@ -25,3 +25,253 @@ int main()
 		printf("查找成功 元素%d在集合中的序号是:%d\n", key, index);
 	return 0;
 }
+/*对一维数组访问的三种方式
+1.下标访问 int a[10] a[i] 2.地址访问*(a+i) 3.指针访问*(p+i)*/
+int num, a[5] = { 1,2,3,4,5 };
+int* p = a, * q; 指针p指向a[0], q = p + 4 * sizeof(int);
+q = p + 4; num = q - p;指针q和p之间的元素个数
+num = (int)q - int(p); num = (int)q - (int)p;指针q和p之间的字节数
+
+void swap(int arr[], int num1,int num2)
+{
+
+	int temp = arr[num1];
+	arr[num1] = arr[num2];
+	arr[num2] = temp;
+}
+void process(int arr[], int num)
+{
+
+	int maxnum = arr[0];
+	int minnum = arr[0];
+	int maxpos = 0;
+	int minpos = 0;
+	for (int i = 0; i < num; i++)
+	{
+		if (arr[i] < minnum)
+		{
+			minnum = arr[i];
+			minpos = i;
+		}
+		if (arr[i] > maxnum)
+		{
+			maxnum = arr[i];
+			maxpos = i;
+		}
+	}
+	if (arr[0] != minnum)
+	{
+		swap(arr,0, minpos);
+		
+	}
+	if (arr[9] != maxnum)
+	{
+		swap(arr,num -1,maxpos);
+	}
+}
+int main()
+{
+
+	int  arr[9] = { 1, 9, 7, 1, 2, 5, 6, 7, 8 };
+	int num = sizeof(arr) / sizeof(arr[0]);
+	process(arr, num);
+	for (int i = 0; i < num; i++)
+	{
+		printf("%d ", arr[i]);
+	}
+	printf("\n");
+
+	return 0;
+}
+void swap(int* a, int* b)
+{
+	int temp = *a;
+	*a = *b;
+	*b = temp;
+}
+
+
+void process(int arr[], int num)//一维数组做参数 共用同一块空间
+{
+	int* p;
+	int* min, * max;
+	p = max = min = arr;
+	for (; p < arr + num; p++)
+	{
+		if (*p < *min)
+			min = p;
+		if (*p > *max)
+			max = p;
+	}
+	if (min != arr)
+	{
+		swap(arr, min);
+	}
+	if (max != arr + num - 1)
+	{
+		swap((arr + num - 1), max);
+	}
+
+}
+int main()
+{
+
+	int  arr[9] = { 1, 9, 7, 1, 2, 5, 6, 7, 8 };
+	int num = sizeof(arr) / sizeof(arr[0]);
+	process(arr, num);
+	for (int i = 0; i < num; i++)
+	{
+		printf("%d ", arr[i]);
+	}
+	printf("\n");
+
+	return 0;
+}
+
+//遍历字符串 空格处只缩为一个空格 
+void operate(char* p1, char* p2)
+{
+	while (*p1)
+	{
+		if (*p1!=' ')
+		{
+			*p2++ = *p1++;
+		}
+		else {
+			*p2++ = ' ';
+			while (*p1 == ' ')
+			{
+				p1++;
+			}
+		}
+	}
+	*p2 = '\0';
+}
+
+
+
+#include<stdio.h>
+void inverse(int arr[3][4])
+{
+	int i,j;
+	int arr1[3][4];
+	for (i = 0; i < 3; i++)
+	{
+		for (j = 0; j < 4; j++)
+		{
+			arr1[i][j] = arr[2 - i][3 - j];
+		}
+	}
+	for (i = 0; i < 3; i++)
+	{
+		for (j = 0; j < 4; j++)
+		{
+			arr[i][j] = arr1[i][j];
+		}
+	}
+}
+
+
+
+int main()
+{
+	int i,j;
+	int arr[3][4] = { {1,2,3,4},{5,6,7,8},{9,10,11,12} };
+	inverse(arr);
+	for (i = 0; i < 3; i++)
+	{
+		for (j = 0; j < 4; j++)
+		{
+			printf("%d ", arr[i][j]);
+		
+		}
+			printf("\n");
+	}
+	return 0;
+}
+
+//一维数组方式看待
+const int M = 3, N = 4;
+void swap(int* p1, int* p2)
+{
+	int temp = *p1;
+	*p1 = *p2;
+	*p2 = temp;
+}
+void inverse(int* a, int n)
+{
+	int* p, * q;
+	for (p = a, q = a + n - 1; p <= q; p++, q--)
+	{
+		swap(p, q);
+	}
+}
+int main()
+{
+	int i, j;
+	int arr[3][4] = { {1,2,3,4},{5,6,7,8},{9,10,11,12} };
+	inverse(arr,M*N);
+	for (i = 0; i < 3; i++)
+	{
+		for (j = 0; j < 4; j++)
+		{
+			printf("%d ", arr[i][j]);
+
+		}
+		printf("\n");
+	}
+	return 0;
+}
+
+
+
+//二维数组角度
+
+void inverse(int arr[3][4]) {
+    int arr1[3][4];
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 4; j++) {
+            arr1[i][j] = arr[2 - i][3 - j]; // Reverse both row and column indices
+        }
+    }
+
+    // Copy reversed matrix back to original array
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 4; j++) {
+            arr[i][j] = arr1[i][j];
+        }
+    }
+}
+
+int main() {
+    int arr[3][4] = { {1,2,3,4},{5,6,7,8},{9,10,11,12} };
+    inverse(arr);
+
+    // Print the reversed matrix
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 4; j++) {
+            printf("%d ", arr[i][j]);
+        }
+        printf("\n"); // Add a newline after each row
+    }
+
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
