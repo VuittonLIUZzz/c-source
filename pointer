@@ -306,8 +306,77 @@ int main()
 }
 
 
+int (*fptr)(int, int)
+/*函数指针的使用
+ 指针变量名=被指向函数名
+ fptr = maxx
+ 2函数调用 指针变量名(函数调用实参)
+ int x = fptr(5,8)*/
+
+int square(int num)
+{
+	return num * num;
+}
+int main()
+{
+	int num;
+	int (*fp)(int);//函数指针的声明
+	printf("输入一个数字:");
+	scanf("%d", &num);
+	fp = square;//建立指针和和函数之间的联系
+	printf("fp = 0x%x,%d\n", fp, (*fp)(num));//返回地址和数字
+	return 0;
+}
+
+//函数指针作为参数进行传递
+int add(int n1, int n2)
+{
+	return n1 + n2;
+}
+int sub(int num1, int num2)
+{
+	return num1 - num2;
+}
+int calculate(int(*fp)(int, int), int num1, int num2)
+{
+	return (*fp)(num1, num2);
+}
+int main()
+{
+	printf("%d\n", calculate(add, 3, 5));
+	printf("%d\n", calculate(sub, 3, 5));
+	return 0;
+}
 
 
+
+
+void function1(int);
+void function2(int);
+void function3(int);
+int main()
+{
+	void(*f[3])(int) = { function1,function2,function3 };
+	//函数指针数组,数组里面存放函数
+	int choice;
+	printf("输入一个数:范围[0-2]:");
+	scanf("%d", &choice);
+	while (choice >= 0 && choice < 3)
+	{
+		(*f[choice])(choice);
+		printf("输入一个数:范围[0-2]:");
+		scanf("%d", &choice);
+	}
+	printf("程序运行结束");
+	return 0;
+}
+
+/*栈区stack 编译系统自动分配释放 主要存放函数参数局部变量等*/
+/*堆区由程序员分配 */
+/*全局区或静态区:存放全局变量和静态变量 程序结束由系统释放
+分为全局初始化区和全局未初始化区
+常量区
+程序代码区*/
 
 
 
