@@ -377,6 +377,34 @@ int main()
 分为全局初始化区和全局未初始化区
 常量区
 程序代码区*/
+char* catstr(char* s1, char* s2)
+{
+	char* str, * p;
+	int length = strlen(s1) + strlen(s2)+1;
+	str = (char*)malloc(length * sizeof(char));
+	memset(str, 0, length * sizeof(char));
+	p = str;
+	while (*s1)
+	{
+		*p++ = *s1++;
+	}
+	while (*s2)
+	{
+		*p++ = *s2++;
+	}
+	*p = '\0';
+	return str;
+}
+int main()
+{
+	char s1[] = "123456";
+	char s2[] = "67890";
+	char* str = NULL;
+	str = catstr(s1, s2);
+	printf("%s", str);
+	free(str);
+	return 0;
+}
 
 
 
